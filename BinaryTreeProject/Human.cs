@@ -41,7 +41,7 @@ namespace BinaryTreeProject
 
         public override string ToString()
         {
-            return _age.ToString();
+            return _name + _surname + " " + _age;
         }
     }
 }
