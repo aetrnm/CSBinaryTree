@@ -26,12 +26,12 @@ namespace BinaryTreeProject
                 return 0;
             }
 
-            if (other._age < _age)
+            if (other._age.CompareTo(_age) == -1)
             {
                 return 1;
             }
 
-            if (other._age > _age)
+            if (other._age.CompareTo(_age) == 1)
             {
                 return -1;
             }

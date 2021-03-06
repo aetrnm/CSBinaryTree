@@ -1,83 +1,84 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace BinaryTreeProject
 {
     public class Cell<T> : IEnumerable where T: IComparable<T>
-
     {
-    private readonly T _value;
-    private Cell<T> _leftCell, _rightCell;
+        private readonly T _value;
+        private Cell<T> _leftCell, _rightCell;
 
-    public Cell(T value)
-    {
-        _value = value;
-    }
-
-    public void Add(T value)
-    {
-        if (value is not null)
+        public Cell(T value)
         {
-            if (value.CompareTo(_value) == -1)
+            _value = value;
+        }
+
+        public void Add(T value)
+        {
+            if (value is not null)
             {
-                AssignValueToCell(value, ref _leftCell);
+                if (value.CompareTo(_value) == -1)
+                {
+                    AssignValueToCell(value, ref _leftCell);
+                }
+                else
+                {
+                    AssignValueToCell(value, ref _rightCell);
+                }
+            }
+        }
+
+        private void AssignValueToCell(T value, ref Cell<T> cell)
+        {
+            if (cell is null)
+            {
+                cell = new Cell<T>(value);
             }
             else
             {
-                AssignValueToCell(value, ref _rightCell);
+                cell.Add(value);
             }
         }
-    }
 
-    private void AssignValueToCell(T value, ref Cell<T> cell)
-    {
-        if (cell is null)
+        public bool Contains(T value)
         {
-            cell = new Cell<T>(value);
-        }
-        else
-        {
-            cell.Add(value);
-        }
-    }
-
-    public bool Contains(T value)
-    {
-        if (_value is not null)
-        {
-            if (_value.CompareTo(value) == 0)
+            if (_value is not null)
             {
-                return true;
+                if (_value.CompareTo(value) == 0)
+                {
+                    return true;
+                }
+
+                if (value.CompareTo(_value) == -1)
+                {
+                    return _leftCell?.Contains(value) ?? false; // null-checking
+                }
+                return _rightCell?.Contains(value) ?? false; // null-checking
             }
 
-            if (value.CompareTo(_value) == -1)
-            {
-                return _leftCell?.Contains(value) ?? false; // null-checking
-            }
+            return false;
         }
 
-        return _rightCell?.Contains(value) ?? false; // null-checking
-    }
-
-    public IEnumerator GetEnumerator()
-    {
-        if (_leftCell is not null)
+        public IEnumerator GetEnumerator()
         {
-            foreach (var value in _leftCell)
+            if (_leftCell is not null)
             {
-                yield return value;
+                foreach (var value in _leftCell)
+                {
+                    yield return value;
+                }
+            }
+
+            yield return _value;
+
+            if (_rightCell is not null)
+            {
+                foreach (var value in _rightCell)
+                {
+                    yield return value;
+                }
             }
         }
-
-        yield return _value;
-
-        if (_rightCell is not null)
-        {
-            foreach (var value in _rightCell)
-            {
-                yield return value;
-            }
-        }
-    }
     }
 }

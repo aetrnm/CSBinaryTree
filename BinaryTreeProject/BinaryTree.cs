@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 
 namespace BinaryTreeProject
 {
@@ -22,21 +21,20 @@ namespace BinaryTreeProject
 
         public bool Contains(T value)
         {
-            return _root.Contains(value);
+            return _root?.Contains(value) ?? false;
         }
 
         public override string ToString()
         {
-            List<T> tree = new List<T>();
-            foreach (T x in this)
-            {
-                tree.Add(x);
-            }
-            return string.Join(" ", tree);
+            return string.Join(" ", _root.GetEnumerator()); //не могу реализовать Кайзер ПОМОГИ реализовать
         }
 
         public IEnumerator GetEnumerator()
         {
+            if (_root is null)
+            {
+                throw new Exception("Tree is empty.");
+            }
             return _root.GetEnumerator();
         }
     }
