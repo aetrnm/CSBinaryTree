@@ -26,7 +26,7 @@ namespace BinaryTreeProject
 
         public override string ToString()
         {
-            return string.Join(" ", _root.GetEnumerator()); //не могу реализовать Кайзер ПОМОГИ реализовать
+            return string.Join(" ", this);
         }
 
         public IEnumerator GetEnumerator()

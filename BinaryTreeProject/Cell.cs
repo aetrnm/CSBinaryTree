@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 
 namespace BinaryTreeProject
 {
@@ -11,7 +10,10 @@ namespace BinaryTreeProject
 
         public Cell(T value)
         {
-            _value = value;
+            if (value is not null)
+            {
+                _value = value;
+            }
         }
 
         public void Add(T value)
